@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Draft Invoice - Design Services</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f6f2ea;
+      color: #101827;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .invoice {
+      width: min(840px, calc(100% - 28px));
+      margin: 28px auto;
+      padding: 0;
+      background: #fff;
+      border: 1px solid #e7e1d7;
+      box-shadow: 0 18px 45px rgba(16, 24, 39, 0.08);
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding: 28px 38px 22px;
+      border-bottom: 1px solid #ece7dd;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 56px;
+      height: 30px;
+      display: block;
+      flex: 0 0 56px;
+    }
+
+    .brand-ring {
+      position: absolute;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      border: 8px solid #050505;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .brand-ring.blue {
+      left: 0;
+      border-color: #1165ff;
+    }
+
+    .brand-ring.black {
+      left: 25px;
+      border-color: #050505;
+    }
+
+    .brand-word {
+      color: #080808;
+      font-size: 31px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .draft {
+      padding: 7px 10px;
+      border: 1px solid #d8d2c7;
+      color: #707783;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 230px;
+      gap: 28px;
+      padding: 34px 38px 30px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 48px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 15px;
+    }
+
+    .amount-box {
+      padding: 20px;
+      background: #f7f9ff;
+      border-left: 4px solid #5278ff;
+      text-align: right;
+    }
+
+    .amount-label {
+      margin-bottom: 8px;
+      color: #6b7280;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .amount-due {
+      font-size: 28px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .content {
+      padding: 0 38px 38px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      padding: 24px 0;
+      border-top: 1px solid #ece7dd;
+      border-bottom: 1px solid #ece7dd;
+    }
+
+    .from-block {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .label {
+      margin-bottom: 8px;
+      color: #6b7280;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .name {
+      margin-bottom: 5px;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .service {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+      margin-top: 22px;
+      padding: 16px 0;
+      border-bottom: 1px solid #ece7dd;
+    }
+
+    .service-title {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .service-note {
+      margin-top: 4px;
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .service-price {
+      color: #5278ff;
+      font-size: 22px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .description {
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid #ece7dd;
+    }
+
+    .description h2 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .task-description {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      color: #374151;
+    }
+
+    .task-description p {
+      margin: 0;
+    }
+
+    .task-description strong {
+      color: #101827;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .invoice {
+        width: 100%;
+        margin: 0;
+        border: 0;
+        box-shadow: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .invoice {
+        width: 100%;
+        margin: 0;
+      }
+
+      .top,
+      .hero,
+      .content {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .top,
+      .service {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .amount-box {
+        text-align: left;
+      }
+
+      .totals {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="invoice">
+    <section class="top">
+      <div class="brand-logo" aria-label="Salam logo">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-ring blue"></span>
+          <span class="brand-ring black"></span>
+        </span>
+        <span class="brand-word">salam</span>
+      </div>
+    </section>
+
+    <section class="hero">
+      <div>
+        <h1>Invoice</h1>
+        <div class="subtitle">SM MIR GmbH</div>
+      </div>
+      <div class="amount-box">
+        <div class="amount-label">Invoice Number</div>
+        <div class="amount-due">INV-16723</div>
+      </div>
+    </section>
+
+    <div class="content">
+      <section class="grid">
+        <div>
+          <div class="label">Billed To</div>
+          <div class="name">SM MIR GmbH</div>
+          <div>M&uuml;hlenstr. 8a</div>
+          <div>Berlin 14167</div>
+          <div>Germany</div>
+          <div>+49 1516 8135631</div>
+        </div>
+
+        <div class="from-block">
+          <div class="label">From</div>
+          <div class="name">salam TM</div>
+          <div>Danatarov Danatar</div>
+          <div>Mary, Mollanepes 15, 745400</div>
+          <div><a href="https://salam.tm">salam.tm</a></div>
+          <div>danatarovdany@gmail.com</div>
+          <div>+993 63 515374</div>
+        </div>
+      </section>
+
+      <section class="service">
+        <div>
+          <p class="service-title">Design Services</p>
+          <div class="service-note"><br></div>
+        </div>
+        <div class="service-price">396.00 USD</div>
+      </section>
+
+      <section class="description">
+        <h2>Task Description</h2>
+        <div class="task-description">
+          <p><strong>Product card design:</strong> Design of a professional product card layout, including product image placement, pricing, key details, branding elements, and visual structure for online store use.</p>
+          <p><strong>New site design:</strong> Design of website layout, visual structure, homepage, inner pages, and user interface elements.</p>
+          <p><strong>Email newsteller:</strong> Design of a branded email template, including header, content sections, call-to-action elements, and footer.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        Invoice SM MIR GMBh salam.tm
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

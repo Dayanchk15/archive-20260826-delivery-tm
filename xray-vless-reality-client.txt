@@ -1,0 +1,14 @@
+vless://9f5b32f4-8e47-4600-af0b-5df4d110dbfa@34.51.152.241:443?encryption=none&security=reality&sni=www.google.com&fp=chrome&pbk=dohF4dzpDlxqXIsrFxCgEyd7mEW9NUbzoneQjqckzX8&sid=b1a49ec249fc833e&type=tcp&flow=xtls-rprx-vision&spx=%2F#Xray-Reality
+
+Address: 34.51.152.241
+Port: 443
+Protocol: VLESS
+UUID: 9f5b32f4-8e47-4600-af0b-5df4d110dbfa
+Security: reality
+Network: tcp
+Flow: xtls-rprx-vision
+SNI: www.google.com
+Fingerprint: chrome
+Public key: dohF4dzpDlxqXIsrFxCgEyd7mEW9NUbzoneQjqckzX8
+Short ID: b1a49ec249fc833e
+SpiderX: /

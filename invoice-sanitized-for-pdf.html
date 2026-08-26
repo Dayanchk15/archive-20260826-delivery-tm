@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f3f1ec;
+      color: #151922;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .invoice {
+      width: min(900px, calc(100% - 32px));
+      margin: 32px auto;
+      background: #fff;
+      border: 1px solid #e3ded5;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 28px;
+      padding: 34px 40px 26px;
+      border-top: 6px solid #151922;
+      border-bottom: 1px solid grey;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 54px;
+      height: 30px;
+      flex: 0 0 54px;
+    }
+
+    .brand-ring {
+      position: absolute;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      border: 8px solid #050505;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .brand-ring.blue {
+      left: 0;
+      border-color: #1165ff;
+    }
+
+    .brand-ring.grey {
+      left: 24px;
+      border-color: #050505;
+    }
+
+    .brand-word {
+      color: #050505;
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .invoice-id {
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin-bottom: 6px;
+      color: #6f7682;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .invoice-id strong {
+      display: block;
+      font-size: 30px;
+      line-height: 1.1;
+    }
+
+    .title {
+      display: grid;
+      grid-template-columns: 2fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 34px 40px 28px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 8px 0 0;
+      color: #6f7682;
+      font-size: 14px;
+    }
+
+    .total-box {
+      min-width: 120px;
+      text-align: right;
+    }
+
+    .total-box .value {
+      display: block;
+      margin-top: 4px;
+      color: #151922;
+      font-size: 16px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .content {
+      padding: 0 40px 38px;
+    }
+
+    .parties {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 24px 0;
+      border-top: 1px solid grey;
+    }
+
+    .party {
+      min-height: 170px;
+    }
+
+    .party-title,
+    .details-title {
+      margin-bottom: 9px;
+      color: #6f7682;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .party-name {
+      margin-bottom: 6px;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    a {
+      color: #1165ff;
+      text-decoration: none;
+    }
+
+    .invoice-table {
+      margin-top: 26px;
+    }
+
+    .section-heading {
+      margin: 0 0 10px;
+      color: #151922;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .section-heading.spaced {
+      margin-top: 22px;
+    }
+
+    .invoice-table table,
+    .payment-table,
+    .totals-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      border: 1px solid #b8b8b8;
+    }
+
+    .invoice-table table + table {
+      margin-top: 18px;
+    }
+
+    .invoice-table th,
+    .invoice-table td,
+    .payment-table th,
+    .payment-table td,
+    .totals-table th,
+    .totals-table td {
+      padding: 10px 9px;
+      border: 1px solid #b8b8b8;
+      background: transparent;
+      overflow-wrap: anywhere;
+      vertical-align: middle;
+    }
+
+    .invoice-table th,
+    .payment-table th,
+    .totals-table th {
+      color: #6f7682;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .invoice-table td,
+    .payment-table td,
+    .totals-table td {
+      color: #151922;
+      font-size: 13px;
+    }
+
+    .invoice-details-table th {
+      width: 24%;
+      text-align: left;
+    }
+
+    .invoice-details-table td {
+      width: 26%;
+      text-align: left;
+    }
+
+    .invoice-line-table th,
+    .invoice-line-table td {
+      text-align: center;
+    }
+
+    .invoice-line-table .description-col,
+    .invoice-line-table .description-text {
+      width: 48%;
+      text-align: left;
+    }
+
+    .invoice-line-table .qty-col {
+      width: 12%;
+    }
+
+    .invoice-line-table .unit-col,
+    .invoice-line-table .amount-col {
+      width: 20%;
+      white-space: nowrap;
+    }
+
+    .invoice-line-table .amount-col,
+    .totals-table td {
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .invoice-bottom {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 24px;
+      align-items: start;
+      margin-top: 22px;
+    }
+
+    .payment-table th {
+      width: 38%;
+      text-align: left;
+    }
+
+    .payment-table td {
+      text-align: left;
+    }
+
+    .totals-table th {
+      width: 55%;
+      text-align: left;
+    }
+
+    .totals-table .total-row th,
+    .totals-table .total-row td {
+      color: #151922;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .tax-note {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #b8b8b8;
+      color: #343b46;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .description h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .task-description {
+      display: grid;
+      gap: 10px;
+      color: #343b46;
+    }
+
+    .task-description p {
+      margin: 0;
+    }
+
+    .task-description strong {
+      color: #151922;
+    }
+
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px 24px;
+      margin-top: 34px;
+      padding-top: 16px;
+      border-top: 1px solid grey;
+      color: #6f7682;
+      font-size: 12px;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .invoice {
+        width: 100%;
+        margin: 0;
+        border: 0;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .invoice {
+        width: 100%;
+        margin: 0;
+      }
+
+      .header,
+      .title,
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .title,
+      .parties,
+      .invoice-bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .invoice-table table,
+      .invoice-table thead,
+      .invoice-table tbody,
+      .invoice-table tr,
+      .invoice-table th,
+      .invoice-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .invoice-line-table .description-col,
+      .invoice-line-table .description-text,
+      .invoice-line-table .qty-col,
+      .invoice-line-table .unit-col,
+      .invoice-line-table .amount-col,
+      .invoice-details-table th,
+      .invoice-details-table td {
+        width: 100%;
+        text-align: center;
+      }
+
+      .invoice-line-table .description-col,
+      .invoice-line-table .description-text,
+      .payment-table th,
+      .payment-table td,
+      .totals-table th,
+      .totals-table td {
+        text-align: left;
+      }
+
+      .header,
+      .title,
+      .content {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .invoice-id,
+      .total-box {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="invoice">
+    <header class="header">
+      <div class="brand-logo" aria-label="Salam logo">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-ring blue"></span>
+          <span class="brand-ring grey"></span>
+        </span>
+        <span class="brand-word">salam</span>
+      </div>
+
+      <div class="total-box">
+        <span class="eyebrow">Issue Date</span>
+        <span class="value">01.04.2026</span>
+      </div>
+      
+    </header>
+
+    <section class="title">
+      <div>
+        <h1>Invoice</h1>
+        <p class="subtitle"></p>
+      </div>
+	  
+	  <div class="invoice-id">
+        <div class="eyebrow">Invoice</div>
+        <strong>16723</strong>
+      </div>
+    </section>
+
+    <div class="content">
+      <section class="parties">
+        <div class="party">
+          <div class="party-title">Billed To</div>
+          <div class="party-name">SM MIR GmbH</div>
+          <div>M&uuml;hlenstr. 8a</div>
+          <div>Berlin 14167</div>
+          <div>Germany</div>
+          <div>+49 1516 8135631</div>
+          <div>VAT ID: DE348784995</div>
+        </div>
+
+        <div class="party">
+          <div class="party-title">From</div>
+          <div class="party-name">Salam TM</div>
+          <div>Danatarov Danatar</div>
+          <div>Mollanepes 15</div>
+          <div>+993 63 51 53 74</div>
+        </div>
+      </section>
+
+      <section class="invoice-table" aria-label="Invoice summary">
+        <h2 class="section-heading spaced">Line Items</h2>
+        <table class="invoice-line-table">
+          <thead>
+            <tr>
+              <th class="description-col">Description</th>
+              <th class="qty-col">Qty</th>
+              <th class="unit-col">Unit Price</th>
+              <th class="amount-col">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="description-text">Design Services</td>
+              <td class="qty-col">1</td>
+              <td class="unit-col">396.00 USD</td>
+              <td class="amount-col">396.00 USD</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="invoice-bottom">
+          <div>
+            <table class="payment-table">
+             
+            </table>
+          </div>
+
+          <div>
+            <h2 class="section-heading">Totals</h2>
+            <table class="totals-table">
+              <tbody>
+                <tr>
+                  <th>Subtotal</th>
+                  <td>396.00 USD</td>
+                </tr>
+                <tr>
+                  <th>VAT</th>
+                  <td>0.00 USD</td>
+                </tr>
+                <tr class="total-row">
+                  <th>Total Due</th>
+                  <td>396.00 USD</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tax-note">
+          
+        </div>
+      </section>
+
+      <section class="description">
+        <h2>Tasks</h2>
+        <div class="task-description">
+          <p><strong>1. Product card design:</strong> Created conversion-focused product cards for elfbarpods.de, flerbarshop.de, and glimp.de, including ELFX Mini new-arrival layouts, optimized product-image areas, clear price blocks, improved product-detail hierarchy, and consistent brand styling.</p>
+          <p><strong>2. New site design:</strong> Refreshed the vaalpod.de homepage and product-page layouts with cleaner spacing, updated content blocks, stronger visual hierarchy, improved section structure, and more polished UI elements.</p>
+          <p><strong>3. Email newsletter:</strong> Designed branded newsletter templates for elfbarpods.de, flerbarshop.de, and glimp.de, including ELFX Mini New Arrival and Mega Sale campaigns with product highlights, promotional sections, and clear call-to-action areas.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+		<span><a href="https://salam.tm">salam.tm</a></span>
+        <span>danatarovdany@gmail.com</span>
+        <span>+993 63 51 53 74</span>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
+

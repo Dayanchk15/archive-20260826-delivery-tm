@@ -1,0 +1,9 @@
+FR2 Shadowsocks 2022 test
+
+Server: 185.209.230.46
+Port: 10443
+Method: 2022-blake3-aes-128-gcm
+Password: xvtNW9840vKTXhqLr1MPmg==
+
+Import URI:
+ss://MjAyMi1ibGFrZTMtYWVzLTEyOC1nY206eHZ0Tlc5ODQwdktUWGhxTHIxTVBtZz09@185.209.230.46:10443#FR2%20SS2022%20TEST
